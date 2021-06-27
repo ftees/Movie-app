@@ -1,25 +1,79 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { useState } from 'react';
+import MovieList from './components/MovieList';
+import { useEffect } from 'react';
+import Heading from './components/Heading';
+import Search from './components/Search';
+import AddFavour from './components/AddFavour';
+import RemoveFavour from './components/RemoveFavour';
+import Detail from './components/Detail';
+
+
 
 function App() {
+  const [movie,setMovie] = useState([])
+  const [searchValue, setSearchValue] = useState('all')
+  const [showDetail, setShowDetail] = useState(false);
+  const [movieID, setMovieID] = useState('');
+  const [favoritesList, setFavoritesList] = useState([])
+  const fetchMovie = async (searchValue) =>{
+    const response = await fetch(`http://www.omdbapi.com/?s=${searchValue}&apikey=c9127ecc`);
+    const results = await response.json();
+    console.log(results);
+    if(results.Search){
+    setMovie(results.Search);
+  }
+  }
+  useEffect(() => {
+    fetchMovie(searchValue);
+  },[searchValue])
+  const openDetail = (id) => {
+     setMovieID(id);
+     setShowDetail(true);
+  }
+  const addFavorites = (movie) => {
+    const newFavorites = [... favoritesList, movie];
+    console.log(movie+"bababa");
+    setFavoritesList(newFavorites);
+  }
+
+  const removeFavorites = (movie) => {
+    const newFavorites = favoritesList.filter((favorites) => favorites.imdbID !== movie.imdbID);
+    setFavoritesList(newFavorites);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div className="container-fluid app">
+      <h1 className="title-name">FTees.net</h1>
+    <div className="row d-flex align-items-center mt-4 mb-4">
+     
+      </div>
+      {showDetail ? <div>
+        <Heading title="Movie detail"/>
+        <Detail idPara = {movieID} />
+        </div>  : ' '}
+        
+      <div className="row d-flex align-items-center mt-4 mb-4">
+      <Heading title="Movies"/>
+      <Search value = {searchValue} setSearchValue ={setSearchValue}></Search>
+      </div>
+      <div className="row">
+      <MovieList movie={movie} favorites={AddFavour} addFavorites={addFavorites} openDetail={openDetail}></MovieList>
+      </div>
+      <div className="row d-flex align-items-center mt-4 mb-4">
+      <Heading title="Favourites Movie"/>
+      </div>
+      <div className="row">
+      <MovieList movie={favoritesList} favorites={RemoveFavour} addFavorites={removeFavorites} openDetail={openDetail} ></MovieList>
+      </div>
+     
+     
+      </div>
+      
   );
 }
+
+
 
 export default App;
