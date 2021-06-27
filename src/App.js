@@ -36,7 +36,9 @@ function App() {
     localStorage.setItem("favorites-movie",JSON.stringify(movie));
   };
   useEffect(() => {
+    if(JSON.parse(localStorage.getItem("favorites-movie"))){
     setFavoritesList(JSON.parse(localStorage.getItem("favorites-movie")));
+    }
   }, []);
   const addFavorites = (movie) => {
     const newFavorites = [...favoritesList, movie];
