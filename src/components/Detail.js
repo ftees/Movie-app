@@ -4,7 +4,7 @@ const Detail = (props) => {
   const [detail, setDetail] = useState({});
   const id = props.idPara;
   const getMovieDetail = async (id) =>{
-      const response = await fetch(`http://www.omdbapi.com/?i=${id}&apikey=c9127ecc`)
+      const response = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=c9127ecc`)
       const responseJson = await response.json();
       setDetail(responseJson);
   }
