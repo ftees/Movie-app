@@ -36,5 +36,8 @@
   text-shadow: 3px 3px rgba(255,255,255,0.4);
 }
 .btn{
-  margin-right: 1em;
+  margin:1em 1em 1em 0em;
+}
+.error{
+  color: #cf1f2b;
 }
