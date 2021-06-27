@@ -9,7 +9,7 @@ const MovieList = props => {
        <>
       {props.movie.map((movie,index) =>(
          
-           <div className="d-flex justify-content-start m-3 image-container" onClick ={() => props.openDetail(movie.imdbID)}>
+           <div className="d-flex justify-content-start m-2 image-container" onClick ={() => props.openDetail(movie.imdbID)}>
            <img src={movie.Poster} alt=""></img>
            <div className="overlay d-flex justify-content-center align-items-center" onClick={() => props.addFavorites(movie)}>
              <Favourites />

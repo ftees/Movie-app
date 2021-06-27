@@ -26,6 +26,7 @@ const Detail = (props) => {
       <p>Runtime: {detail.Runtime}</p>
       <p>Released: {detail.Released}</p>
       <button className="btn btn-primary"><b>Watch Movie</b></button>
+      <button className="btn btn-danger"><b>Download</b></button>
       </div>
 </div>
   );
